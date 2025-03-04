@@ -1,3 +1,5 @@
+import { BsXCircleFill } from "react-icons/bs";
+import { GoCheckCircle } from "react-icons/go";
 import './TodoItem.css';
 
 function TodoItem(props) {
@@ -7,7 +9,7 @@ function TodoItem(props) {
                 className={`Icon Icon-check ${props.completed && "Icon-check--active"}`}
                 onClick={props.onComplete}
             >
-                V
+                <GoCheckCircle />
             </span>
             <p className={`TodoItem-p ${props.completed && "TodoItem-p--complete"}`}>
                 {props.text}
@@ -15,7 +17,7 @@ function TodoItem(props) {
             <span className="Icon Icon-delete"
                 onClick={props.onDelete}
             >
-                X
+                <BsXCircleFill />
             </span>
         </li>
     );
