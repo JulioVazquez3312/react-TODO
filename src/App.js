@@ -34,14 +34,14 @@ function useLocalStorage(itemName, initialValue){
 
   const saveItem = (newItem) => {
     localStorage.setItem(itemName, JSON.stringify(newItem));
-    saveItem(newItem);
+    setItem(newItem);
   };
 
   return [item, saveItem];
 }
 
 function App() {
-  const [todos, setTodos] = useLocalStorage('TODOS_V1', []);
+  const [todos, saveTodos] = useLocalStorage('TODOS_V1', []);
   const [searchValue, setSearchValue] = React.useState('');
 
   const completedTodoS = todos.filter( 
