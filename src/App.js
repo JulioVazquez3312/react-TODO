@@ -6,16 +6,29 @@ import { TodoItem } from './TodoItem';
 import { CreateTodoButton } from './CreateTodoButton';
 
 
-const defaultTodos = [
-  { text: 'Cortar Cebolla', completed: true},
-  { text: 'Tomar el curso', completed: false},
-  { text: 'Llorar con la LLorona', completed: false},
-  { text: 'HAHAHAHAHA', completed: false},
-  { text: 'Estados derivados', completed: true},
-];
+// const defaultTodos = [
+//   { text: 'Cortar Cebolla', completed: true},
+//   { text: 'Tomar el curso', completed: false},
+//   { text: 'Llorar con la LLorona', completed: false},
+//   { text: 'HAHAHAHAHA', completed: false},
+//   { text: 'Estados derivados', completed: true},
+// ];
+// localStorage.setItem('TODOS_V1',JSON.stringify(defaultTodos));
+// const stringTodos = JSON.stringify(defaultTodos);
+// localStorage.getItem('TODOS_V1', defaultTodos);
+// localStorage.removeItem('TODOS_V1');
 
 function App() {
-  const [todos, setTodos] = React.useState(defaultTodos);
+  const localStorageTodos = localStorage.getItem('TODOS_V1');
+  let parsedTodos;
+  if(localStorageTodos){
+    parsedTodos= JSON.parse(localStorageTodos);
+  }else{
+    localStorage.setItem('TODOS_V1', JSON.stringify([]));
+    parsedTodos = [];
+  }
+
+  const [todos, setTodos] = React.useState(parsedTodos);
   const [searchValue, setSearchValue] = React.useState('');
 
   const completedTodoS = todos.filter( 
@@ -31,13 +44,18 @@ function App() {
     }
   );
 
+  const saveTodos = (newTodos) => {
+    localStorage.setItem('TODOS_V1', JSON.stringify(newTodos));
+    setTodos(newTodos);
+  }
+
   const completeTodo = (text) => {
     const newTodos = [...todos];
     const todoIndex = newTodos.findIndex(
       (todo) => todo.text === text
     );
     newTodos[todoIndex].completed = true;
-    setTodos(newTodos);
+    saveTodos(newTodos);
   };
 
   const deleteTodo = (text) => {
@@ -46,7 +64,7 @@ function App() {
       (todo) => todo.text === text
     );
     newTodos.splice(todoIndex, 1);
-    setTodos(newTodos);
+    saveTodos(newTodos);
   };
 
   return (

@@ -1,3 +1,4 @@
+import { MdAdd } from "react-icons/md";
 import './CreateTodoButton.css';
 function CreateTodoButton() {
     return (
@@ -8,8 +9,9 @@ function CreateTodoButton() {
                     console.log(event)
                     console.log(event.target)
                 }
-            }
-        >+</button>
+            }>
+        <MdAdd />
+        </button>
     );
 }
 export { CreateTodoButton };
