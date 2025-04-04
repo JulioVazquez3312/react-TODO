@@ -7,8 +7,9 @@ import { TodosLoading } from '../TodosLoading';
 import { TodosError } from '../TodosError';
 import { EmptyTodos } from '../EmptyTodos';
 import { CreateTodoButton } from '../CreateTodoButton';
-import { TodoContext } from '../TodoContext';
+import { TodoForm } from '../TodoForm';
 import { Modal } from '../Modal';
+import { TodoContext } from '../TodoContext';
 
 function AppUI() {
     const {
@@ -36,6 +37,7 @@ function AppUI() {
                 )}
                 {error && <TodosError />}
                 {(!loading && searchedTodos.length === 0) && <EmptyTodos />}
+
                 {searchedTodos.map(todo => (
                     <TodoItem
                         key={todo.text}
@@ -46,10 +48,14 @@ function AppUI() {
                     />
                 ))}
             </TodoList>
-            <CreateTodoButton />
+
+            <CreateTodoButton
+                setOpenModal={setOpenModal}
+            />
+
             {openModal && (
                 <Modal>
-                    <h2>La funcionalidad de agregar todos</h2>
+                    <TodoForm />
                 </Modal>
             )}
         </>
